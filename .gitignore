@@ -56,3 +56,6 @@ target/
 
 # ignore PyCharm settings
 .idea/
+
+# Env files
+.env
