@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_extensions",
     "backend_test.utils",
+    # Meal management
+    "backend_test.meals",
 ]
 
 MIDDLEWARE = [
