@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     # Meal management
     "backend_test.meals",
     "backend_test.users",
+    "backend_test.orders",
 ]
 
 MIDDLEWARE = [
