@@ -7,7 +7,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = "__all__"
+        exclude = ("created_at", "updated_at")
 
 
 class MenuSerializer(serializers.ModelSerializer):
@@ -17,4 +17,4 @@ class MenuSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = ("available_on", "meals")
+        exclude = ("created_at", "updated_at")
