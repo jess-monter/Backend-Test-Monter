@@ -33,6 +33,7 @@ SESSION_COOKIE_HTTPONLY = True
 
 SERVER_URL = os.getenv("SERVER_URL", default="*")
 
+SITE_ID = 1
 
 APPEND_SLASH = False
 
@@ -46,10 +47,18 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    # Rest authentication
+    "rest_framework.authtoken",
+    "rest_auth",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "rest_auth.registration",
     "django_extensions",
     "backend_test.utils",
     # Meal management
     "backend_test.meals",
+    "backend_test.users",
 ]
 
 MIDDLEWARE = [
@@ -143,6 +152,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Models config
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -152,7 +164,7 @@ STATIC_URL = "/static/"
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ],
 }
 
@@ -160,6 +172,8 @@ if getenv("BROWSABLE_API_RENDERER", default=False, coalesce=bool):
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = REST_FRAMEWORK[
         "DEFAULT_RENDERER_CLASSES"
     ] + ["rest_framework.renderers.BrowsableAPIRenderer"]
+
+REST_USE_JWT = True
 
 # APP SPECIFIC SETTINGS
 

@@ -1,7 +1,0 @@
-<h1>Menu for {{ menu.available_on }}</h1>
-
-<ul>
-{% for meal in menu.meals.all %}
-    <li>Option {{ forloop.counter }}: {{ meal.dishes }}</li>
-{% endfor %}
-</ul>

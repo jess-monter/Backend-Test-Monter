@@ -21,6 +21,9 @@ typed-ast = "^1.4.3"
 redis = "^3.5.3"
 celery = "^5.0.5"
 python-dotenv = "^0.17.1"
+django-rest-auth = "^0.9.5"
+django-allauth = "^0.44.0"
+djangorestframework-jwt = "^1.11.0"
 
 [tool.poetry.dev-dependencies]
 django-extensions = "^3.1.3"

@@ -23,5 +23,6 @@ from .utils.healthz import healthz
 urlpatterns = [
     path("healthz", healthz, name="healthz"),
     path("admin/", admin.site.urls),
-    url("meals/", include("backend_test.meals.urls")),
+    url("", include("backend_test.users.urls")),
+    url("", include("backend_test.meals.urls")),
 ]
