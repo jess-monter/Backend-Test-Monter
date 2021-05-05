@@ -253,3 +253,9 @@ LOGGING = {
         },
     },
 }
+
+# Slack
+SLACK_SIGNING_SECRET = getenv(
+    "SLACK_SIGNING_SECRET", default="slack-signing-secret", coalesce=str
+)
+SLACK_BOT_TOKEN = getenv("SLACK_BOT_TOKEN", default="slack-bot-token", coalesce=str)
