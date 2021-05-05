@@ -1,8 +1,12 @@
 import os
 
 from celery import Celery
-
+from celery.schedules import crontab
+from dotenv import load_dotenv
+import django
 from .envtools import getenv
+
+load_dotenv(verbose=True)
 
 
 class CelerySettings:
@@ -15,7 +19,7 @@ class CelerySettings:
     # Time and date settings
     # https://docs.celeryproject.org/en/v4.3.0/userguide/configuration.html#time-and-date-settings
     CELERY_ENABLE_UTC = True
-    CELERY_TIMEZONE = "UTC"
+    CELERY_TIMEZONE = "America/Mexico_City"
     # Task settings
     # https://docs.celeryproject.org/en/v4.3.0/userguide/configuration.html#task-settings
     CELERY_TASK_SERIALIZER = "json"
@@ -64,9 +68,28 @@ class CelerySettings:
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend_test.settings")
+django.setup()
 
 settings = CelerySettings()
 
 app = Celery("backend_test")
 app.config_from_object(settings)
 app.autodiscover_tasks()
+
+from backend_test.users.employee_reminder import EmployeeReminder
+
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    sender.add_periodic_task(
+        crontab(hour=10, minute=0, day_of_week="mon,tue,wed,thu,fri"),
+        send_employee_reminder.s("CHL"),
+    )
+
+
+@app.task
+def send_employee_reminder(country):
+    try:
+        EmployeeReminder(country).send_slack_new_menu_reminder()
+    except Exception:
+        raise
