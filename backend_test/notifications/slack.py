@@ -15,7 +15,7 @@ class SlackNotification:
 
     @property
     def client(self):
-        """ Start slack client."""
+        """Start slack client."""
         return WebClient(token=settings.SLACK_BOT_TOKEN)
 
     def get_channel_id(self):
