@@ -6,7 +6,7 @@ from slack_sdk.errors import SlackApiError
 
 @dataclass
 class SlackNotification:
-    """ Class to handle slack notifications. """
+    """ Class to handle slack notifications."""
 
     channel_name: str
     block_message: str
@@ -15,11 +15,11 @@ class SlackNotification:
 
     @property
     def client(self):
-        """ Start slack client. """
+        """ Start slack client."""
         return WebClient(token=settings.SLACK_BOT_TOKEN)
 
     def get_channel_id(self):
-        """ Get channel id by name from slack. """
+        """ Get channel id by name from slack."""
         conversation_id = None
         try:
             con = self.client.conversations_list()
@@ -36,7 +36,7 @@ class SlackNotification:
         return conversation_id
 
     def send_message(self):
-        """ Send slack message to user or channel. """
+        """ Send slack message to user or channel."""
         recipient = self.channel_name if self.user_message else self.get_channel_id()
         try:
             self.client.chat_postMessage(
