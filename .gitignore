@@ -59,3 +59,6 @@ target/
 
 # Env files
 .env
+
+# Jupyter files
+*.ipynb
