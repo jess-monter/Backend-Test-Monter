@@ -2,7 +2,7 @@
 
 
 def get_new_menu_block_message(menu_url):
-    """ Build a message with a custom menu url. """
+    """Build a message with a custom menu url."""
     return [
         {"type": "divider"},
         {
