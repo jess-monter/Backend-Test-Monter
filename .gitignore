@@ -62,3 +62,7 @@ target/
 
 # Jupyter files
 *.ipynb
+
+# Celery generated files
+celery
+celerybeat-schedule

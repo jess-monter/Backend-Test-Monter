@@ -8,24 +8,22 @@ from slack_sdk.errors import SlackApiError
 class SlackNotification:
     """Class to handle slack notifications."""
 
-    channel_name: str
     block_message: str
-    text_message: str = None
-    user_message: bool = False
+    text_message: str
 
     @property
     def client(self):
         """Start slack client."""
         return WebClient(token=settings.SLACK_BOT_TOKEN)
 
-    def get_channel_id(self):
+    def get_channel_id(self, channel_name):
         """Get channel id by name from slack."""
         conversation_id = None
         try:
             con = self.client.conversations_list()
             channels = list(
                 filter(
-                    lambda channel: channel["name"] == self.channel_name,
+                    lambda channel: channel["name"] == channel_name,
                     con.data["channels"],
                 )
             )
@@ -35,9 +33,9 @@ class SlackNotification:
             raise
         return conversation_id
 
-    def send_message(self):
+    def send_message(self, channel_name=None, user_message=False):
         """Send slack message to user or channel."""
-        recipient = self.channel_name if self.user_message else self.get_channel_id()
+        recipient = channel_name if user_message else self.get_channel_id(channel_name)
         try:
             self.client.chat_postMessage(
                 channel=recipient, text=self.text_message, blocks=self.block_message
