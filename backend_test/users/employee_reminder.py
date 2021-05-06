@@ -34,8 +34,10 @@ class EmployeeReminder:
         return domain + menu
 
     def get_employees_slack_ids(self):
-        employees_slack_id = Employee.objects.filter(country=self.country).values_list(
-            "slack_user_id", flat=True
+        employees_slack_id = (
+            Employee.objects.filter(country=self.country)
+            .exclude(slack_user_id__in=[None, ""])
+            .values_list("slack_user_id", flat=True)
         )
         return list(employees_slack_id)
 
