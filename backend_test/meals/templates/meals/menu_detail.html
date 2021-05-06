@@ -1,0 +1,9 @@
+<h1> {{ object.available_on }} <h1>
+<h2>Hello!</h2>
+<h3>I share with you today's menu :)</h3>
+{% for meal in object.meals.all %}
+<ul>
+    <li>Option {{ forloop.counter }}: {{ meal.dishes }}</li>
+</ul>
+<p>Have a nice day!</p>
+{% endfor %}

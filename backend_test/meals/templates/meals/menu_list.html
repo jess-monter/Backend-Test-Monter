@@ -1,0 +1,20 @@
+<h1>Menus</h1>
+<ul>
+    {% for menu in object_list %}
+        <li>
+            <a href="{% url 'menu-update' menu.id %}"> {{ menu.available_on }} </a>
+        </li>
+        <p>
+            {% for meal in menu.meals.all %}
+                <ul>
+                    <li>Option {{ forloop.counter }}: {{ meal.dishes }}</li>
+                </ul>
+            {% empty %}
+                <li>No meals in menu yet.</li>
+            {% endfor %}
+        </p>
+
+    {% empty %}
+        <li>No menus yet.</li>
+    {% endfor %}
+</ul>
