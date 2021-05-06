@@ -47,12 +47,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    # Rest authentication
+    # Authentication
     "rest_framework.authtoken",
     "rest_auth",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "rest_auth.registration",
     "django_extensions",
     "backend_test.utils",
@@ -259,3 +260,6 @@ SLACK_SIGNING_SECRET = getenv(
     "SLACK_SIGNING_SECRET", default="slack-signing-secret", coalesce=str
 )
 SLACK_BOT_TOKEN = getenv("SLACK_BOT_TOKEN", default="slack-bot-token", coalesce=str)
+
+# Allauth settings
+ACCOUNT_EMAIL_VERIFICATION = "none"
