@@ -5,6 +5,7 @@ import uuid
 
 
 class Meal(models.Model):
+    """Model rep for meals."""
 
     dishes = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,6 +21,8 @@ class Meal(models.Model):
 
 
 class Menu(models.Model):
+    """Model rep for a menu."""
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     meals = models.ManyToManyField(Meal, through="MenuMeal")
     available_on = models.DateField()
@@ -31,8 +34,13 @@ class Menu(models.Model):
         verbose_name = "Menu"
         verbose_name_plural = "Menus"
 
+    def __str__(self):
+        return str(self.available_on)
+
 
 class MenuMeal(models.Model):
+    """Model rep for all meals in a menu."""
+
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

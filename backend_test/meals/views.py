@@ -8,22 +8,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Meal, Menu
 from .serializers import MealSerializer, MenuSerializer
 
-# Create your views here.
-
 
 class MealViewSet(ModelViewSet):
+    """Meal ViewSet for API ops."""
 
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
 
 class MenuViewSet(ModelViewSet):
+    """Mene ViewSet for API ops."""
 
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
 
 class MenuDetailView(DetailView):
+    """View for Menu Details Handler."""
 
     model = Menu
 
@@ -37,6 +38,7 @@ class MenuDetailView(DetailView):
 
 
 class MenuCreateView(LoginRequiredMixin, CreateView):
+    """View for Menu Creation Handler."""
 
     model = Menu
     fields = ["available_on", "meals"]
@@ -44,6 +46,7 @@ class MenuCreateView(LoginRequiredMixin, CreateView):
 
 
 class MenuListView(LoginRequiredMixin, ListView):
+    """View for Menu List Handler."""
 
     model = Menu
 
@@ -54,6 +57,8 @@ class MenuListView(LoginRequiredMixin, ListView):
 
 
 class MenuUpdateView(LoginRequiredMixin, UpdateView):
+    """View for Menu Update Handler."""
+
     model = Menu
     fields = ["available_on", "meals"]
     template_name_suffix = "_update_form"
@@ -64,6 +69,7 @@ class MenuUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class MealDetailView(LoginRequiredMixin, DetailView):
+    """View for Meal Details Handler."""
 
     model = Meal
 
@@ -77,6 +83,7 @@ class MealDetailView(LoginRequiredMixin, DetailView):
 
 
 class MealCreateView(LoginRequiredMixin, CreateView):
+    """View for Meal Creation Handler."""
 
     model = Meal
     fields = ["dishes"]
@@ -84,6 +91,7 @@ class MealCreateView(LoginRequiredMixin, CreateView):
 
 
 class MealListView(LoginRequiredMixin, ListView):
+    """View for Menu List Handler."""
 
     model = Meal
 
@@ -94,6 +102,8 @@ class MealListView(LoginRequiredMixin, ListView):
 
 
 class MealUpdateView(LoginRequiredMixin, UpdateView):
+    """View for Menu Update Handler."""
+
     model = Meal
     fields = ["dishes"]
     template_name_suffix = "_update_form"

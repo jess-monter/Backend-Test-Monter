@@ -3,7 +3,7 @@ from .models import Menu, Meal
 
 
 class MealSerializer(serializers.ModelSerializer):
-    """Serializer to handle Dishes. """
+    """Serializer to handle Dishes."""
 
     class Meta:
         model = Meal
@@ -11,7 +11,7 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class MenuSerializer(serializers.ModelSerializer):
-    """Serializer to handle Menus. """
+    """Serializer to handle Menus."""
 
     meals = MealSerializer(many=True, read_only=True)
 
