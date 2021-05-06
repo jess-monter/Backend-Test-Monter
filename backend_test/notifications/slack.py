@@ -1,5 +1,5 @@
-from django.conf import settings
 from dataclasses import dataclass
+from django.conf import settings
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
@@ -14,10 +14,12 @@ class SlackNotification:
     @property
     def client(self):
         """Start slack client."""
+
         return WebClient(token=settings.SLACK_BOT_TOKEN)
 
     def get_channel_id(self, channel_name):
         """Get channel id by name from slack."""
+
         conversation_id = None
         try:
             con = self.client.conversations_list()
@@ -35,6 +37,7 @@ class SlackNotification:
 
     def send_message(self, channel_name=None, user_message=False):
         """Send slack message to user or channel."""
+
         recipient = channel_name if user_message else self.get_channel_id(channel_name)
         try:
             self.client.chat_postMessage(

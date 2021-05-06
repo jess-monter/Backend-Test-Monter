@@ -9,16 +9,16 @@ from .serializers import OrderSerializer
 from .models import Order
 from .forms import OrderForm
 
-# Create your views here.
-
 
 class OrderViewSet(ModelViewSet):
+    """Meal Order for API ops."""
 
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
+    """View for Order Details Handler."""
 
     model = Order
 
@@ -32,6 +32,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
+    """View for Order Creation Handler."""
 
     model = Order
     form_class = OrderForm
@@ -43,6 +44,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 
 class OrderListView(LoginRequiredMixin, ListView):
+    """View for Order List Handler."""
 
     model = Order
 
@@ -62,6 +64,8 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
+    """View for Order Update Handler."""
+
     model = Order
     fields = ["status"]
     template_name_suffix = "_update_form"
