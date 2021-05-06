@@ -11,8 +11,8 @@ class Order(models.Model):
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=STATUS)
-    notes = models.CharField(max_length=255)
+    status = models.CharField(max_length=20, choices=STATUS, default="PENDING")
+    notes = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
