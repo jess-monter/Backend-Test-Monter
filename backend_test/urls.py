@@ -25,4 +25,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     url("", include("backend_test.users.urls")),
     url("", include("backend_test.meals.urls")),
+    url("", include("backend_test.orders.urls")),
 ]
