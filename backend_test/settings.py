@@ -263,3 +263,7 @@ SLACK_BOT_TOKEN = getenv("SLACK_BOT_TOKEN", default="slack-bot-token", coalesce=
 
 # Allauth settings
 ACCOUNT_EMAIL_VERIFICATION = "none"
+
+# Order time limits
+ORDER_LIMIT_HOUR = getenv("ORDER_LIMT_HOUR", default=0, coalesce=int)
+ORDER_LIMIT_MINUTE = getenv("ORDER_LIMIT_MINUTE", default=0, coalesce=int)

@@ -1,4 +1,5 @@
 from datetime import date
+from django.conf import settings
 from django.forms import ModelForm
 from django.utils import timezone
 from django.core.exceptions import ValidationError
@@ -14,9 +15,11 @@ class OrderForm(ModelForm):
         )
 
     def clean_meal(self):
-        if timezone.now() > timezone.now().replace(hour=0, minute=30):
+        if timezone.now() > timezone.now().replace(
+            hour=settings.ORDER_LIMIT_HOUR, minute=settings.ORDER_LIMIT_MINUTE
+        ):
             raise ValidationError("The time to order is up!")
 
     class Meta:
         model = Order
-        fields = ["meal"]
+        fields = ["meal", "notes"]
