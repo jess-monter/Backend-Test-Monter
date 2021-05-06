@@ -82,7 +82,7 @@ from backend_test.users.employee_reminder import EmployeeReminder
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
-        crontab(hour=10, minute=0, day_of_week="mon,tue,wed,thu,fri"),
+        crontab(hour=20, minute=19, day_of_week="mon,tue,wed,thu,fri"),
         send_employee_reminder.s("CHL"),
     )
 
