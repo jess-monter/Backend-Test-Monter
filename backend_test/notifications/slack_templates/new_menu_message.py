@@ -15,7 +15,7 @@ def get_new_menu_block_message(menu_url):
                 "type": "button",
                 "text": {"type": "plain_text", "text": "Go To Menu", "emoji": True},
                 "value": "choose_your_meal",
-                "url": f"https://www.google.com/{menu_url}",
+                "url": menu_url,
                 "action_id": "button-action",
             },
         },
