@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.urls import path
 
 
 urlpatterns = [
@@ -8,4 +9,5 @@ urlpatterns = [
         include("rest_auth.registration.urls"),
         name="register",
     ),
+    path("accounts/", include("allauth.urls")),
 ]

@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Meal, Menu
 from .serializers import MealSerializer, MenuSerializer
 
@@ -35,14 +36,14 @@ class MenuDetailView(DetailView):
         return Menu.objects.get(id=self.kwargs.get("uuid"))
 
 
-class MenuCreateView(CreateView):
+class MenuCreateView(LoginRequiredMixin, CreateView):
 
     model = Menu
     fields = ["available_on", "meals"]
     success_url = reverse_lazy("menu-list")
 
 
-class MenuListView(ListView):
+class MenuListView(LoginRequiredMixin, ListView):
 
     model = Menu
 
@@ -52,7 +53,7 @@ class MenuListView(ListView):
         return context
 
 
-class MenuUpdateView(UpdateView):
+class MenuUpdateView(LoginRequiredMixin, UpdateView):
     model = Menu
     fields = ["available_on", "meals"]
     template_name_suffix = "_update_form"
@@ -62,7 +63,7 @@ class MenuUpdateView(UpdateView):
         return Menu.objects.get(id=self.kwargs.get("uuid"))
 
 
-class MealDetailView(DetailView):
+class MealDetailView(LoginRequiredMixin, DetailView):
 
     model = Meal
 
@@ -75,14 +76,14 @@ class MealDetailView(DetailView):
         return Meal.objects.get(pk=self.kwargs.get("pk"))
 
 
-class MealCreateView(CreateView):
+class MealCreateView(LoginRequiredMixin, CreateView):
 
     model = Meal
     fields = ["dishes"]
     success_url = reverse_lazy("meal-list")
 
 
-class MealListView(ListView):
+class MealListView(LoginRequiredMixin, ListView):
 
     model = Meal
 
@@ -92,7 +93,7 @@ class MealListView(ListView):
         return context
 
 
-class MealUpdateView(UpdateView):
+class MealUpdateView(LoginRequiredMixin, UpdateView):
     model = Meal
     fields = ["dishes"]
     template_name_suffix = "_update_form"
