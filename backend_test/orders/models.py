@@ -20,3 +20,6 @@ class Order(models.Model):
         db_table = "order"
         verbose_name = "Order"
         verbose_name_plural = "Orders"
+
+    def __str__(self):
+        return f"{self.employee.user.username} ordered {self.meal.dishes}"
