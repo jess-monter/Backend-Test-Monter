@@ -1,0 +1,13 @@
+<h1>Employees</h1>
+<ul>
+    {% for employee in object_list %}
+        <li>
+            <a href="{% url 'employee-update' employee.id %}"> {{ employee.user.username }} </a>
+        </li>
+    {% empty %}
+        <li>No employees yet.</li>
+    {% endfor %}
+</ul>
+<p>
+    <a href="{% url 'employee-add' %}"> Create a new employee. </a>
+</p>

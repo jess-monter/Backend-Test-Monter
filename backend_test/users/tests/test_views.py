@@ -2,36 +2,21 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from backend_test.users.models import Employee
-from backend_test.meals.models import Meal
-from backend_test.orders.models import Order
 
 
-class OrderListViewTest(TestCase):
-    """Test Orders List Views."""
+class EmployeeListViewTest(TestCase):
+    """Test Employees List View."""
 
     @classmethod
     def setUpTestData(cls):
-        """Set up inital common test data."""
+        """Set up initual common test data."""
+        countries = ["MX", "CHL", "USA", "PER", "COL"]
         for count in range(5):
-            User.objects.create(username=f"johny.doe {count}")
-        users = User.objects.all()
-        meals = [
-            Meal.objects.create(dishes=f"Chicken Potato {count}") for count in range(5)
-        ]
-        employees = [
-            Employee.objects.create(user=users[count], country="CHL")
-            for count in range(5)
-        ]
-
-        for count in range(5):
-            Order.objects.create(
-                employee=employees[count],
-                meal=meals[count],
-                notes=f"This is a note {count}",
-            )
+            user = User.objects.create(username=f"johny.doe {count}")
+            Employee.objects.create(user=user, country=countries[count])
 
     def setUp(self):
-        """Add tests inital data."""
+        """Set up initual test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -42,30 +27,30 @@ class OrderListViewTest(TestCase):
         mortal_user.save()
 
     def test_view_url_exists_at_desired_location(self):
-        """Meal view exists at url."""
+        """Employee view exists at url."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get("/order")
+        response = self.client.get("/employee")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_accesible_by_name(self):
-        """Meal list url is accesible by its name."""
+        """Employee list url is accesible by its name."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(reverse("order-list"))
+        response = self.client.get(reverse("employee-list"))
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        """Meal list uses meal_list template."""
+        """Employee list uses employee_list template."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(reverse("order-list"))
+        response = self.client.get(reverse("employee-list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "orders/order_list.html")
+        self.assertTemplateUsed(response, "users/employee_list.html")
 
 
-class OrderCreateViewTest(TestCase):
-    """Test Orders Create Views."""
+class EmployeeCreateViewTest(TestCase):
+    """Test Employees Creation View."""
 
     def setUp(self):
-        """Add tests inital data."""
+        """Set up initual test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -76,31 +61,31 @@ class OrderCreateViewTest(TestCase):
         mortal_user.save()
 
     def test_view_url_exists_at_desired_location(self):
-        """Order creation view exists at url."""
+        """Employee creation view exists at url."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get("/order/add")
+        response = self.client.get("/employee/add")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_accesible_by_name(self):
-        """Order creation url is accesible by its name."""
+        """Employee creation url is accesible by its name."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(reverse("order-add"))
+        response = self.client.get(reverse("employee-add"))
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        """Order creation uses order_form template."""
+        """Employee creation uses employee_form template."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(reverse("order-add"))
+        response = self.client.get(reverse("employee-add"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "orders/order_form.html")
+        self.assertTemplateUsed(response, "users/employee_form.html")
 
 
-class OrderDetailViewTest(TestCase):
-    """Test Orders Detail Views."""
+class EmployeeDetailViewTest(TestCase):
+    """Test Employees Details View."""
 
     @classmethod
     def setUpTestData(cls):
-        """Add tests inital common data."""
+        """Set up initual common test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -109,42 +94,38 @@ class OrderDetailViewTest(TestCase):
             username="jane.doe", password="XVAP12!0$"
         )
         mortal_user.save()
-        employee = Employee.objects.create(user=mortal_user, country="CHL")
-        meal = Meal.objects.create(dishes="Raw Chicken and Dessert")
-        cls.order = Order.objects.create(
-            employee=employee, meal=meal, notes="This is a note."
-        )
+        cls.employee = Employee.objects.create(user=mortal_user, country="CHL")
 
     def test_view_url_exists_at_desired_location(self):
-        """Meal detail view exists at url."""
+        """Employee detail view exists at url."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(f"/order/{self.order.pk}")
+        response = self.client.get(f"/employee/{self.employee.pk}")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_accesible_by_name(self):
-        """Meal detail url is accesible by its name."""
+        """Employee detail url is accesible by its name."""
         self.client.login(username="john.doe", password="XVAP11!0$")
         response = self.client.get(
-            reverse("order-detail", kwargs={"pk": self.order.pk})
+            reverse("employee-detail", kwargs={"pk": self.employee.pk})
         )
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        """Order details uses order_detail template."""
+        """Employee details uses employee_detail template."""
         self.client.login(username="john.doe", password="XVAP11!0$")
         response = self.client.get(
-            reverse("order-detail", kwargs={"pk": self.order.pk})
+            reverse("employee-detail", kwargs={"pk": self.employee.pk})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "orders/order_detail.html")
+        self.assertTemplateUsed(response, "users/employee_detail.html")
 
 
-class OrderUpdateViewTest(TestCase):
-    """Test Orders Update Views."""
+class EmployeeUpdateViewTest(TestCase):
+    """Test Employees Update View."""
 
     @classmethod
     def setUpTestData(cls):
-        """Add tests inital common data."""
+        """Set up initual common test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -153,31 +134,27 @@ class OrderUpdateViewTest(TestCase):
             username="jane.doe", password="XVAP12!0$"
         )
         mortal_user.save()
-        employee = Employee.objects.create(user=mortal_user, country="CHL")
-        meal = Meal.objects.create(dishes="Raw Chicken and Dessert")
-        cls.order = Order.objects.create(
-            employee=employee, meal=meal, notes="This is a note."
-        )
+        cls.employee = Employee.objects.create(user=mortal_user, country="CHL")
 
     def test_view_url_exists_at_desired_location(self):
-        """Order detail view exists at url."""
+        """Employee detail view exists at url."""
         self.client.login(username="john.doe", password="XVAP11!0$")
-        response = self.client.get(f"/order/{self.order.pk}/update")
+        response = self.client.get(f"/employee/{self.employee.pk}/update")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_accesible_by_name(self):
-        """Order detail url is accesible by its name."""
+        """Employee detail url is accesible by its name."""
         self.client.login(username="john.doe", password="XVAP11!0$")
         response = self.client.get(
-            reverse("order-update", kwargs={"pk": self.order.pk})
+            reverse("employee-update", kwargs={"pk": self.employee.pk})
         )
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        """Order update uses order_update_form template."""
+        """Employee details uses employee_detail template."""
         self.client.login(username="john.doe", password="XVAP11!0$")
         response = self.client.get(
-            reverse("order-update", kwargs={"pk": self.order.pk})
+            reverse("employee-update", kwargs={"pk": self.employee.pk})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "orders/order_update_form.html")
+        self.assertTemplateUsed(response, "users/employee_update_form.html")

@@ -16,3 +16,6 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return f"/employee/{self.pk}"
