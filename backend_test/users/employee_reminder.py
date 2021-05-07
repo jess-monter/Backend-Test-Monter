@@ -17,7 +17,6 @@ class EmployeeReminder:
     country: str
 
     def get_new_menu(self):
-        # TODO: Generate UUID instead of int pk
         try:
             today_menu = Menu.objects.get(available_on=date.today())
         except Menu.DoesNotExist:
