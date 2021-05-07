@@ -6,8 +6,11 @@ from backend_test.meals.models import Meal, Menu
 
 
 class MealListViewTest(TestCase):
+    """Test for Meal list view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Set up inital common test data."""
         meals_count = 13
         meal_dish = "Chicken Potato"
 
@@ -15,6 +18,7 @@ class MealListViewTest(TestCase):
             Meal.objects.create(dishes=f"{meal_dish} {count}")
 
     def setUp(self):
+        """Set up inital test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -45,7 +49,10 @@ class MealListViewTest(TestCase):
 
 
 class MealCreateViewTest(TestCase):
+    """Test for Meal Creation view."""
+
     def setUp(self):
+        """Set up inital test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -76,8 +83,11 @@ class MealCreateViewTest(TestCase):
 
 
 class MealDetailViewTest(TestCase):
+    """Test for Meal Detail view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Set up inital common test data."""
         cls.meal = Meal.objects.create(dishes="Raw Chicken and Dessert")
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
@@ -109,8 +119,11 @@ class MealDetailViewTest(TestCase):
 
 
 class MealUpdateViewTest(TestCase):
+    """Test for Meal Update view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Set up inital common test data."""
         cls.meal = Meal.objects.create(dishes="Raw Chicken and Dessert")
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
@@ -142,8 +155,11 @@ class MealUpdateViewTest(TestCase):
 
 
 class MenuListViewTest(TestCase):
+    """Test for Menu list view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Set up inital common test data."""
         menus_count = 13
 
         for count in range(menus_count):
@@ -180,7 +196,10 @@ class MenuListViewTest(TestCase):
 
 
 class MenuCreateViewTest(TestCase):
+    """Test for Menu Creation view."""
+
     def setUp(self):
+        """Set up inital test data."""
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
         )
@@ -211,8 +230,11 @@ class MenuCreateViewTest(TestCase):
 
 
 class MenuDetailViewTest(TestCase):
+    """Test for Menu Detail view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Set up inital common test data."""
         cls.menu = Menu.objects.create(available_on=date.today())
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
@@ -247,8 +269,11 @@ class MenuDetailViewTest(TestCase):
 
 
 class MenuUpdateViewTest(TestCase):
+    """Test for Menu Update view."""
+
     @classmethod
     def setUpTestData(cls):
+        """Add tests inital data."""
         cls.menu = Menu.objects.create(available_on=date.today())
         super_user = User.objects.create_user(
             username="john.doe", password="XVAP11!0$", is_superuser=True
