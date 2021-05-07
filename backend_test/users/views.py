@@ -3,7 +3,6 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Employee
 

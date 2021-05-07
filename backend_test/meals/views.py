@@ -13,11 +13,6 @@ class MenuDetailView(DetailView):
 
     model = Menu
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
-
     def get_object(self, queryset=None):
         menu = get_object_or_404(Menu, pk=self.kwargs.get("uuid"))
         return menu
@@ -35,11 +30,6 @@ class MenuListView(LoginRequiredMixin, ListView):
     """View for Menu List Handler."""
 
     model = Menu
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
 
 
 class MenuUpdateView(LoginRequiredMixin, UpdateView):
@@ -60,11 +50,6 @@ class MealDetailView(LoginRequiredMixin, DetailView):
 
     model = Meal
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
-
     def get_object(self, queryset=None):
         meal = get_object_or_404(Meal, pk=self.kwargs.get("pk"))
         return meal
@@ -82,11 +67,6 @@ class MealListView(LoginRequiredMixin, ListView):
     """View for Menu List Handler."""
 
     model = Meal
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
 
 
 class MealUpdateView(LoginRequiredMixin, UpdateView):

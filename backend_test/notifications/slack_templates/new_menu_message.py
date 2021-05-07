@@ -1,7 +1,7 @@
 # Utilities for template building.
 
 
-def get_new_menu_block_message(menu_url):
+def get_new_menu_block_message(menu_url):  # pragma: no cover
     """Build a message with a custom menu url."""
     return [
         {"type": "divider"},
