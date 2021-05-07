@@ -2,7 +2,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Order
 from .forms import OrderForm
@@ -12,11 +11,6 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     """View for Order Details Handler."""
 
     model = Order
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
 
     def get_object(self, queryset=None):
         return Order.objects.get(pk=self.kwargs.get("pk"))
@@ -38,11 +32,6 @@ class OrderListView(LoginRequiredMixin, ListView):
     """View for Order List Handler."""
 
     model = Order
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
 
     def get_queryset(self):
         user = self.request.user

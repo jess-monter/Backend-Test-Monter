@@ -17,6 +17,7 @@ class EmployeeReminder:
     country: str
 
     def get_new_menu(self):
+        """Get todays menu str uuid."""
         try:
             today_menu = Menu.objects.get(available_on=date.today())
         except Menu.DoesNotExist:
@@ -24,15 +25,18 @@ class EmployeeReminder:
         return str(today_menu.pk)
 
     def get_site_domain(self):
+        """Get domain from current site."""
         current_site = Site.objects.get_current()
         return current_site.domain
 
     def get_menu_url(self):
+        """Get menu url built."""
         domain = self.get_site_domain()
         menu = self.get_new_menu()
         return domain + menu
 
     def get_employees_slack_ids(self):
+        """Get employees to send notifications."""
         employees_slack_id = (
             Employee.objects.filter(country=self.country)
             .exclude(slack_user_id__in=[None, ""])
@@ -41,6 +45,7 @@ class EmployeeReminder:
         return list(employees_slack_id)
 
     def send_slack_new_menu_reminder(self):
+        """Send notifications to right employees to slack."""
         menu_url = self.get_menu_url()
         block_message = get_new_menu_block_message(menu_url)
         slack_notification = SlackNotification(block_message, menu_url)
