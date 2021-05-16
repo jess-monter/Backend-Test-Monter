@@ -5,9 +5,6 @@ This technical test requires the design and implementation (using Django and Cel
 We provide a nice boilerplate project with Django and Celery up and running so you can use your time more wisely.
 
 
-Should you have any technical questions, please contact osvaldo@cornershopapp.com
-Title of the project: Backend-Test-(Last Name)
-
 ## Description
 
 The old process consists of a person (Nora) sending a text message via Whatsapp to all the chilean employees, the message contains today's menu with the different alternatives for lunch. 
